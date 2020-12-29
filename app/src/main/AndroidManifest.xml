@@ -13,20 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TrackerApp">
-
-        <activity android:name=".centerActivity"></activity>
-
-        <uses-library
-            android:name="com.google.android.wearable"
-            android:required="false" />
-        <!--
-               Set to true if your app is Standalone, that is, it does not require the handheld
-               app to run.
-        -->
-        <meta-data
-            android:name="com.google.android.wearable.standalone"
-            android:value="true" />
-
+      
+      <activity android:name=".centerActivity"></activity>
+        <activity android:name=".Dashboard"></activity>
+        <activity android:name=".UserProfile" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
