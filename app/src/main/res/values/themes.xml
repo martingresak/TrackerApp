@@ -1,4 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="primaryColor">#81d4fa</color>
+    <color name="primaryLightColor">#b6ffff</color>
+    <color name="primaryDarkColor">#4ba3c7</color>
+    <color name="secondaryColor">#00838f</color>
+    <color name="secondaryLightColor">#4fb3bf</color>
+    <color name="secondaryDarkColor">#005662</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#ffffff</color>
     <!-- Base application theme. -->
     <style name="Theme.TrackerApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
