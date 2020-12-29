@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.trackerapp"
+        applicationId "com.emp.trackerapp"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
