@@ -36,7 +36,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class centerActivity extends AppCompatActivity {
+public class CenterActivity extends AppCompatActivity {
 
     Slider typeSlider;
     BarChart mainBarChart;
