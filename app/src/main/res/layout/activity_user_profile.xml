@@ -8,7 +8,7 @@
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="300dp"
         android:padding="20dp"
         android:background="@color/primaryColor">
 
@@ -63,6 +63,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/ic_baseline_person"
+                android:drawablePadding="10dp"
                 android:fontFamily="@font/nunito_black"
                 android:text="Tvoja Mama"/>
 
@@ -77,6 +80,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_baseline_mail"
+                android:drawablePadding="10dp"
+                android:background="@color/white"
                 android:fontFamily="@font/nunito_black"
                 android:text="tvoja.mama@gmail.com"/>
 
@@ -91,6 +97,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_baseline_lock"
+                android:drawablePadding="10dp"
+                android:background="@color/white"
                 android:fontFamily="@font/nunito_black"
                 android:text="porednamamica69"/>
 
@@ -99,6 +108,8 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/secondaryDarkColor"
+            android:textSize="20sp"
             android:text="Edit"
             android:fontFamily="@font/nunito_extrabold"
             android:background="@color/secondaryDarkColor"/>
