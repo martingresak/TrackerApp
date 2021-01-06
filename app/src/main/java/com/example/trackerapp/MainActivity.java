@@ -13,6 +13,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthMultiFactorException;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,10 +25,13 @@ public class MainActivity extends AppCompatActivity {
     Animation topAnim, bottomAnim;
     ImageView image;
     TextView logo;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mAuth = FirebaseAuth.getInstance();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         
@@ -43,16 +49,24 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(MainActivity.this, Login.class);
+                Intent intent;
+                if (mAuth.getCurrentUser() == null) {
+                    intent = new Intent(MainActivity.this, Login.class);
 
-                Pair[] pairs = new Pair[2];
-                pairs[0] = new Pair<View,String>(image, "login_image");
-                pairs[1] = new Pair<View,String>(logo, "login_slogan");
+                    Pair[] pairs = new Pair[2];
+                    pairs[0] = new Pair<View, String>(image, "login_image");
+                    pairs[1] = new Pair<View, String>(logo, "login_slogan");
 
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairs);
-                startActivity(intent, options.toBundle());
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, pairs);
+                    startActivity(intent, options.toBundle());
+                }
+                else {
+                    intent = new Intent(MainActivity.this, CenterActivity.class);
+                    startActivity(intent);
+                }
             }
         },SPLASH_SCREEN);
 
     }
+
 }
