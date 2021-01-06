@@ -3,9 +3,11 @@ package com.example.trackerapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.BarLineChartBase;
@@ -42,8 +44,75 @@ public class CenterActivity extends AppCompatActivity {
     BarChart mainBarChart;
     LineChart mainLineChart;
     ScatterChart mainScatterChart;
+    ArrayList<BarLineChartBase> charts;
+    Button profile;
+
+    ArrayList<Entry> sleep; //teeeeeemp!!!!!!
+    ArrayList<BarEntry> barSleep; //temp as well
 
     static int state;
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_center);
+        charts = new ArrayList<>();
+
+        typeSlider = findViewById(R.id.typeSlider);
+
+        mainBarChart = findViewById(R.id.mainBarChart);
+        mainLineChart = findViewById(R.id.mainLineChart);
+        mainScatterChart = findViewById(R.id.mainScatterChart);
+
+        charts.add(mainBarChart);
+        charts.add(mainLineChart);
+        charts.add(mainScatterChart);
+
+        profile = findViewById(R.id.profile);
+        profile.setOnClickListener(this::onClick);
+
+        //temp list remove pls
+
+        sleep = new ArrayList<>();
+        sleep.add(new Entry(0,60*6));
+        sleep.add(new Entry(1,60*7));
+        sleep.add(new Entry(2,60*8));
+        sleep.add(new Entry(3,60*4));
+        sleep.add(new Entry(4,60*6));
+
+        barSleep = new ArrayList<>();
+
+        for(int i = 0; i < sleep.size(); i++) {
+            float x = sleep.get(i).getX();
+            float y = sleep.get(i).getY();
+            barSleep.add(new BarEntry(x,y));
+        }
+
+        //end of temp
+
+        typeSlider.addOnChangeListener((slider, value, fromUser) -> {
+            int v = (int) (value);
+            setState(v);
+        });
+
+        drawChart();
+
+
+
+
+    }
+
+    public void onClick(View v) {
+        int i = v.getId();
+
+        if(i == R.id.profile) {
+            Intent intent =
+                     new Intent(CenterActivity.this, UserProfile.class);
+            startActivity(intent);
+        }
+    }
 
     void setState(int state) {
         switch (state) {
@@ -75,44 +144,7 @@ public class CenterActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_center);
-        ArrayList<BarLineChartBase> charts = new ArrayList<>();
-
-        typeSlider = findViewById(R.id.typeSlider);
-
-        mainBarChart = findViewById(R.id.mainBarChart);
-        mainLineChart = findViewById(R.id.mainLineChart);
-        mainScatterChart = findViewById(R.id.mainScatterChart);
-
-        charts.add(mainBarChart);
-        charts.add(mainLineChart);
-        charts.add(mainScatterChart);
-
-
-        ArrayList<Entry> sleep = new ArrayList<>();
-        sleep.add(new Entry(0,60*6));
-        sleep.add(new Entry(1,60*7));
-        sleep.add(new Entry(2,60*8));
-        sleep.add(new Entry(3,60*4));
-        sleep.add(new Entry(4,60*6));
-
-
-        typeSlider.addOnChangeListener((slider, value, fromUser) -> {
-            int v = (int) (value);
-            setState(v);
-        });
-
-        ArrayList<BarEntry> barSleep = new ArrayList<>();
-
-        for(int i = 0; i < sleep.size(); i++) {
-            float x = sleep.get(i).getX();
-            float y = sleep.get(i).getY();
-            barSleep.add(new BarEntry(x,y));
-        }
-
+    void drawChart() {
         BarDataSet barDataSet = new BarDataSet(barSleep, "");
         LineDataSet lineDataSet = new LineDataSet(sleep, "");
         ScatterDataSet scatterDataSet = new ScatterDataSet(sleep, "");

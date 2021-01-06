@@ -106,11 +106,24 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/secondaryDarkColor"
+            android:layout_marginVertical="5dp"
             android:textSize="20sp"
             android:text="Edit"
+            android:fontFamily="@font/nunito_extrabold"
+            android:background="@color/secondaryDarkColor"/>
+
+        <Button
+            android:id="@+id/logout_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/secondaryDarkColor"
+            android:layout_marginVertical="5dp"
+            android:textSize="20sp"
+            android:text="Logout"
             android:fontFamily="@font/nunito_extrabold"
             android:background="@color/secondaryDarkColor"/>
 
