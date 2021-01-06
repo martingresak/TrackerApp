@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TrackerApp">
-        <activity android:name=".SignUp"></activity>
+        <activity android:name=".Ratings"></activity>
+        <activity android:name=".SignUp" />
         <activity android:name=".CenterActivity" />
         <activity android:name=".Login" />
         <activity android:name=".UserProfile" />
