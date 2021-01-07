@@ -73,9 +73,6 @@ public class CenterActivity extends AppCompatActivity {
         charts.add(mainLineChart);
         charts.add(mainScatterChart);
 
-        profile = findViewById(R.id.profile);
-        profile.setOnClickListener(this::onClick);
-
         //temp list remove pls
 
         sleep = new ArrayList<>();
@@ -105,16 +102,6 @@ public class CenterActivity extends AppCompatActivity {
 
 
 
-    }
-
-    public void onClick(View v) {
-        int i = v.getId();
-
-        if(i == R.id.profile) {
-            Intent intent =
-                     new Intent(CenterActivity.this, UserProfile.class);
-            startActivity(intent);
-        }
     }
 
     void setState(int state) {
