@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,6 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.concurrent.Semaphore;
 
 public class UserProfile extends AppCompatActivity{
+
+    float x1, x2, y1, y2;
     private FirebaseAuth mAuth;
     Button logout_btn, set_btn, edit_btn;
     ArrayAdapter<String> data_list;
@@ -82,6 +85,16 @@ public class UserProfile extends AppCompatActivity{
         set_btn.setOnClickListener(this::onClick);
         logout_btn.setOnClickListener(this::onClick);
         edit_btn.setOnClickListener(this::onClick);
+
+        Button homeBtn = (Button)findViewById(R.id.ratings_btn);
+
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (UserProfile.this, CenterActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

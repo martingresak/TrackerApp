@@ -18,8 +18,8 @@
         <activity android:name= ".SignUp"/>
         <activity android:name=".CenterActivity" />
         <activity android:name=".Login" />
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".UserProfile">
+        <activity android:name=".UserProfile"/>
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
