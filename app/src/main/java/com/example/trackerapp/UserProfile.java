@@ -1,5 +1,6 @@
 package com.example.trackerapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -12,6 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -20,15 +23,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.concurrent.Semaphore;
+
 public class UserProfile extends AppCompatActivity{
     private FirebaseAuth mAuth;
-    Button logout_btn, set_btn;
+    Button logout_btn, set_btn, edit_btn;
     ArrayAdapter<String> data_list;
     ArrayAdapter<String> goal_list;
     Spinner data_picker, goal_picker;
     private DatabaseReference mDatabase;
-    String selected_data, cu;
+    String selected_data, fullName;
     FirebaseUser user;
+    TextInputLayout full_name, user_email, user_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +43,19 @@ public class UserProfile extends AppCompatActivity{
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance("https://trackerapp-emp-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child(user.getUid());
 
+
+
+
+
+        //text fields fill
+        full_name = findViewById(R.id.full_name);
+        user_email = findViewById(R.id.user_email);
+        user_password = findViewById(R.id.user_password);
+
+        user_email.getEditText().setText(user.getEmail());
+        full_name.getEditText().setText(fullName);
 
         //data_picker spinner
         data_picker = (Spinner) findViewById(R.id.data_picker);
@@ -56,10 +73,33 @@ public class UserProfile extends AppCompatActivity{
 
         logout_btn = findViewById(R.id.logout_btn);
         set_btn = findViewById(R.id.set_btn);
+        edit_btn = findViewById(R.id.edit);
 
         set_btn.setOnClickListener(this::onClick);
         logout_btn.setOnClickListener(this::onClick);
+        edit_btn.setOnClickListener(this::onClick);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                fullName = snapshot.child("fullName").getValue().toString();
+                user_email.getEditText().setText(user.getEmail());
+                full_name.getEditText().setText(fullName);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                fullName = "Database Error";
+            }
+        });
 
     }
 
@@ -88,7 +128,26 @@ public class UserProfile extends AppCompatActivity{
 
         }
         else if (i == R.id.edit) {
+            try {
+                String tempName = full_name.getEditText().getText().toString().trim();
+                mDatabase.child("fullName").setValue(tempName);
+                full_name.getEditText().setText(tempName);
+            } catch (Exception ignored) {
+            }
 
+            try {
+                String tempEmail = user_email.getEditText().getText().toString().trim();
+                user.updateEmail(tempEmail);
+                user_email.getEditText().setText(tempEmail);
+            } catch (Exception ignored) {
+            }
+
+            try {
+                String tempPass = user_password.getEditText().getText().toString().trim();
+                user.updatePassword(tempPass);
+                user_password.getEditText().setText("");
+            } catch (Exception ignored) {
+            }
         }
     }
 

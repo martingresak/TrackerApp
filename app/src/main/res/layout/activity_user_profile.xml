@@ -63,7 +63,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Full Name"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:id="@+id/full_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -72,7 +73,8 @@
                     android:drawableStart="@drawable/ic_baseline_person"
                     android:drawablePadding="10dp"
                     android:fontFamily="@font/nunito_black"
-                    android:text="Tvoja Mama"/>
+
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,7 +82,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="E-mail"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:id="@+id/user_email">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -89,7 +92,7 @@
                     android:drawablePadding="10dp"
                     android:background="@color/white"
                     android:fontFamily="@font/nunito_black"
-                    android:text="tvoja.mama@gmail.com"/>
+                     />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,7 +100,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:id="@+id/user_password">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -106,7 +110,7 @@
                     android:drawablePadding="10dp"
                     android:background="@color/white"
                     android:fontFamily="@font/nunito_black"
-                    android:text="porednamamica69"/>
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 

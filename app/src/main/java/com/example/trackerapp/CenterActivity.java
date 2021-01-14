@@ -96,14 +96,18 @@ public class CenterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference ref;
 
+    private Object lock = new Object();
     String test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_center);
-        mAuth = FirebaseAuth.getInstance();
-        userID = mAuth.getUid();
+
+        synchronized (lock) {
+            mAuth = FirebaseAuth.getInstance();
+            lock.notify();
+        }
 
 
         charts = new ArrayList<>();
@@ -168,6 +172,16 @@ public class CenterActivity extends AppCompatActivity {
 
         String dataType= getIntent().getStringExtra("EXTRA_STRING");
 
+        synchronized (lock) {
+            while (mAuth == null) {
+                try {
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            userID = mAuth.getUid();
+        }
         ref = FirebaseDatabase.getInstance("https://trackerapp-emp-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child(userID);
         ref.addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -176,21 +190,18 @@ public class CenterActivity extends AppCompatActivity {
                         Map<String, Object> days = (Map<String, Object>) dataSnapshot.getValue();
 
                         for (Map.Entry<String, Object> entry : days.entrySet()) {
+                            if(entry.getKey().matches("[0-9]+")) {
 
-                            //Get user map
-                            Map singleUser = (Map) entry.getValue();
-                            //Get phone field and append to list
-                            data.add((Long) singleUser.get(dataType));
-                            for (int i = 0; i < data.size(); i++) {
-                                dataEntry.add(new Entry(i, data.get(i)));
-                                dataBarEntry.add(new BarEntry(i, data.get(i)));
+                                Map<String, Object> day = (Map<String, Object>) entry.getValue();
+                                data.add((Long) day.get(dataType));
                             }
-
-                            drawChart();
-
                         }
 
-
+                        for (int i = 0; i < data.size(); i++) {
+                            dataEntry.add(new Entry(i, data.get(i)));
+                            dataBarEntry.add(new BarEntry(i, data.get(i)));
+                        }
+                        drawChart();
                     }
 
                     @Override

@@ -88,7 +88,7 @@ public class Ratings extends AppCompatActivity {
                 ratingBar_mood.setRating(0);
                 rateCount_mood.setText("");
                 db_mood = rateCount_mood.getText().toString();
-                userDBref.child("mood").setValue(db_mood);
+                userDBref.child("mood").setValue(Integer.parseInt(db_mood));
             }
         });
 
@@ -98,7 +98,7 @@ public class Ratings extends AppCompatActivity {
                 showRating_sleep.setText("Your Sleep: \n" +review_sleep.getText() +" hours");
                 db_sleep = review_sleep.getText().toString();
                 review_sleep.setText("");
-                userDBref.child("sleep").setValue(db_sleep);
+                userDBref.child("sleep").setValue(Integer.parseInt(db_sleep));
             }
         });
 
@@ -108,7 +108,7 @@ public class Ratings extends AppCompatActivity {
                 showRating_exercise.setText("Your Exercise: \n" +review_exercise.getText() +" hours");
                 db_exercise = review_exercise.getText().toString();
                 review_exercise.setText("");
-                userDBref.child("exercise").setValue(db_exercise);
+                userDBref.child("exercise").setValue(Integer.parseInt(db_exercise));
             }
         });
     }
