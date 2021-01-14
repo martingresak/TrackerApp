@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "776574621497",
+    "firebase_url": "https://trackerapp-emp-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "trackerapp-emp",
     "storage_bucket": "trackerapp-emp.appspot.com"
   },
