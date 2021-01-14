@@ -2,7 +2,9 @@ package com.example.trackerapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +21,8 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Ratings extends AppCompatActivity {
+
+    float x1, x2, y1, y2;
 
     TextView showRating_sleep, showRating_exercise, rateCount_mood, showRating_mood;
     EditText review_sleep, review_exercise, review_mood;
@@ -105,11 +109,24 @@ public class Ratings extends AppCompatActivity {
         submit_exercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showRating_exercise.setText("Your Exercise: \n" +review_exercise.getText() +" hours");
+                showRating_exercise.setText("Your Exercise: \n" +review_exercise.getText() +" minutes");
                 db_exercise = review_exercise.getText().toString();
                 review_exercise.setText("");
                 userDBref.child("exercise").setValue(Integer.parseInt(db_exercise));
             }
         });
+        Button homeBtn = (Button)findViewById(R.id.ratings_home_btn);
+
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (Ratings.this, CenterActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+
     }
+
 }

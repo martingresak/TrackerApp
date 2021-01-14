@@ -60,6 +60,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class CenterActivity extends AppCompatActivity {
 
+
     Slider typeSlider;
     BarChart mainBarChart;
     LineChart mainLineChart;
@@ -137,18 +138,28 @@ public class CenterActivity extends AppCompatActivity {
             int v = (int) (value);
             setState(v);
         });
+        Button userBtn = (Button)findViewById(R.id.profile_btn);
+        Button ratingsBtn = (Button)findViewById(R.id.ratings_btn);
+
+        userBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (CenterActivity.this,UserProfile.class);
+                startActivity(intent);
+            }
+        });
 
 
-        //WEATHER
-
-
-
-
-
-
-
+        ratingsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (CenterActivity.this, Ratings.class);
+                startActivity(intent);
+            }
+        });
 
     }
+
 
     @Override
     protected void onResume() {
@@ -393,5 +404,7 @@ public class CenterActivity extends AppCompatActivity {
         mainBarChart.setFitBars(true);
         setState(0);
     }
+
+
 
 }
