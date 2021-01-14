@@ -9,19 +9,38 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 public class Ratings extends AppCompatActivity {
 
     TextView showRating_sleep, showRating_exercise, rateCount_mood, showRating_mood;
     EditText review_sleep, review_exercise, review_mood;
     Button submit_sleep, submit_exercise, submit_mood;
     RatingBar ratingBar_mood;
-    String db_sleep, db_mood, db_exercise;
+    String db_sleep, db_mood, db_exercise, userID, curentDate;
     float rateValue_mood; String temp_mood;
+    private DatabaseReference userDBref;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ratings);
+
+        //Database connect
+        mAuth = FirebaseAuth.getInstance();
+        userID = mAuth.getUid();
+        DateFormat formatter = new SimpleDateFormat("ddMMyyyy");
+        curentDate = formatter.format(new Date());
+        userDBref = FirebaseDatabase.getInstance("https://trackerapp-emp-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child(userID).child(curentDate);
+
 
         //Mood ratings
         rateCount_mood = findViewById(R.id.rateCount_mood);
@@ -69,6 +88,7 @@ public class Ratings extends AppCompatActivity {
                 ratingBar_mood.setRating(0);
                 rateCount_mood.setText("");
                 db_mood = rateCount_mood.getText().toString();
+                userDBref.child("mood").setValue(db_mood);
             }
         });
 
@@ -78,6 +98,7 @@ public class Ratings extends AppCompatActivity {
                 showRating_sleep.setText("Your Sleep: \n" +review_sleep.getText() +" hours");
                 db_sleep = review_sleep.getText().toString();
                 review_sleep.setText("");
+                userDBref.child("sleep").setValue(db_sleep);
             }
         });
 
@@ -87,6 +108,7 @@ public class Ratings extends AppCompatActivity {
                 showRating_exercise.setText("Your Exercise: \n" +review_exercise.getText() +" hours");
                 db_exercise = review_exercise.getText().toString();
                 review_exercise.setText("");
+                userDBref.child("exercise").setValue(db_exercise);
             }
         });
     }
