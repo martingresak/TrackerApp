@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -32,9 +33,10 @@ public class UserProfile extends AppCompatActivity{
     ArrayAdapter<String> goal_list;
     Spinner data_picker, goal_picker;
     private DatabaseReference mDatabase;
-    String selected_data, fullName;
+    String selected_data, fullName, username;
     FirebaseUser user;
     TextInputLayout full_name, user_email, user_password;
+    TextView full_name_display, username_display;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,8 @@ public class UserProfile extends AppCompatActivity{
         full_name = findViewById(R.id.full_name);
         user_email = findViewById(R.id.user_email);
         user_password = findViewById(R.id.user_password);
+        full_name_display = findViewById(R.id.full_name_display);
+        username_display = findViewById(R.id.username_display);
 
         user_email.getEditText().setText(user.getEmail());
         full_name.getEditText().setText(fullName);
@@ -65,10 +69,10 @@ public class UserProfile extends AppCompatActivity{
 
 
         //goal_picker spinner
-        goal_picker = (Spinner) findViewById(R.id.goal_picker);
+        /*goal_picker = (Spinner) findViewById(R.id.goal_picker);
         goal_list = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new String[]{"Sleep 8 hours daily for one week", "Exercise 30min daily for one week", "Sleep 8 hours daily for one month"});
         goal_list.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        goal_picker.setAdapter(goal_list);
+        goal_picker.setAdapter(goal_list);*/
 
 
         logout_btn = findViewById(R.id.logout_btn);
@@ -90,14 +94,22 @@ public class UserProfile extends AppCompatActivity{
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 fullName = snapshot.child("fullName").getValue().toString();
+                username = snapshot.child("userName").getValue().toString();
                 user_email.getEditText().setText(user.getEmail());
                 full_name.getEditText().setText(fullName);
+                full_name_display.setText(fullName);
+                username_display.setText(username);
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 fullName = "Database Error";
+                username = "Database Error";
+                user_email.getEditText().setText(user.getEmail());
+                full_name.getEditText().setText(fullName);
+                full_name_display.setText(fullName);
+                username_display.setText(username);
             }
         });
 

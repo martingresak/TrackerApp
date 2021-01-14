@@ -18,10 +18,9 @@
             android:background="@color/primaryColor">
 
             <TextView
-                android:id="@+id/fullname"
+                android:id="@+id/full_name_display"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tvoja mama"
                 android:textSize="30sp"
                 android:fontFamily="@font/nunito_bold"
                 android:layout_toRightOf="@id/imageView"
@@ -30,7 +29,7 @@
                 android:layout_marginLeft="10dp" />
 
             <TextView
-                android:id="@+id/username"
+                android:id="@+id/username_display"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="tvoja_mama"
@@ -38,7 +37,7 @@
                 android:fontFamily="@font/nunito_regular"
                 android:layout_toRightOf="@id/imageView"
                 android:includeFontPadding="false"
-                android:layout_below="@+id/fullname"
+                android:layout_below="@+id/full_name_display"
                 android:layout_marginLeft="15dp" />
 
             <ImageView
@@ -147,14 +146,14 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"/>
 
-        <Spinner
+        <!--<Spinner
             android:id="@+id/goal_picker"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"/>-->
 
         <Button
             android:id="@+id/set_btn"
@@ -162,6 +161,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/secondaryDarkColor"
             android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="20dp"
             android:textSize="20sp"
             android:text="SET"
             android:fontFamily="@font/nunito_extrabold"
