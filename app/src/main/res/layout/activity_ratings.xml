@@ -1,135 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Ratings"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@color/secondaryColor">
+    android:background="@color/secondaryDarkColor">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="How much sleep did u get?"
-        android:fontFamily="@font/nunito_bold"
-        android:textColor="@color/white"
-        android:textAppearance="?android:textAppearanceLarge"/>
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ratingBar_sleep"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:id="@+id/rateCount_sleep"
-        android:textColor="@color/white"/>
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/nunito_regular"
-        android:hint="Write details..."
-        android:id="@+id/review_sleep"
-        android:textAppearance="?android:textAppearanceMedium"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:fontFamily="@font/nunito_black"
-        android:textAllCaps="false"
-        android:id="@+id/submit_sleep"
-        android:layout_gravity="right"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:id="@+id/showRating_sleep" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="How do you feel today?"
-        android:fontFamily="@font/nunito_bold"
-        android:textColor="@color/white"
-        android:textAppearance="?android:textAppearanceLarge"/>
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ratingBar_feeling"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:id="@+id/rateCount_feeling"
-        android:textColor="@color/white"/>
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/nunito_regular"
-        android:hint="Write details..."
-        android:id="@+id/review_feeling"
-        android:textAppearance="?android:textAppearanceMedium"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:fontFamily="@font/nunito_black"
-        android:textAllCaps="false"
-        android:id="@+id/submit_feeling"
-        android:layout_gravity="right"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:id="@+id/showRating_feeling"
-        android:layout_marginTop="10dp"/>
+        <!--Rating for mood-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="How are you feeling today?"
+            android:fontFamily="@font/nunito_bold"
+            android:textColor="@color/white"
+            android:textAppearance="?android:textAppearanceLarge"/>
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ratingBar_mood"
+            android:outlineAmbientShadowColor="@color/primaryColor"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:id="@+id/rateCount_mood"
+            android:fontFamily="@font/nunito_regular"
+            android:textColor="@color/white"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_regular"
+            android:hint="Write details. . ."
+            android:id="@+id/review_mood"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:textAppearance="?android:textAppearanceMedium"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:fontFamily="@font/nunito_black"
+            android:textColor="@color/secondaryColor"
+            android:textAllCaps="false"
+            android:id="@+id/submit_mood"
+            android:layout_gravity="right"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:id="@+id/showRating_mood"
+            android:fontFamily="@font/nunito_regular"
+            android:textColor="@color/white" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Whats your mood today?"
-        android:fontFamily="@font/nunito_bold"
-        android:textColor="@color/white"
-        android:textAppearance="?android:textAppearanceLarge"/>
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ratingBar_mood"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:id="@+id/rateCount_mood"
-        android:textColor="@color/white"/>
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/nunito_regular"
-        android:hint="Write details..."
-        android:id="@+id/review_mood"
-        android:textAppearance="?android:textAppearanceMedium"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:fontFamily="@font/nunito_black"
-        android:textAllCaps="false"
-        android:id="@+id/submit_mood"
-        android:layout_gravity="right"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:id="@+id/showRating_mood"
-        android:layout_marginTop="10dp"/>
+        <!--Input for sleep-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="How much sleep did you get?"
+            android:fontFamily="@font/nunito_bold"
+            android:textColor="@color/white"
+            android:layout_marginTop="40dp"
+            android:textAppearance="?android:textAppearanceLarge"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_regular"
+            android:hint="Write details..."
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:id="@+id/review_sleep"
+            android:inputType="number"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:layout_marginTop="10dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:fontFamily="@font/nunito_black"
+            android:textAllCaps="false"
+            android:id="@+id/submit_sleep"
+            android:textColor="@color/secondaryColor"
+            android:layout_gravity="right"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:id="@+id/showRating_sleep"
+            android:fontFamily="@font/nunito_regular"
+            android:textColor="@color/white" />
+
+        <!--Input for exercise-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="How much exercise did u do today?"
+            android:fontFamily="@font/nunito_bold"
+            android:textColor="@color/white"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:layout_marginTop="40dp"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_regular"
+            android:hint="Write details. . ."
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:inputType="number"
+            android:id="@+id/review_exercise"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:layout_marginTop="10dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:fontFamily="@font/nunito_black"
+            android:textAllCaps="false"
+            android:id="@+id/submit_exercise"
+            android:textColor="@color/secondaryColor"
+            android:layout_gravity="right"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:id="@+id/showRating_exercise"
+            android:fontFamily="@font/nunito_regular"
+            android:textColor="@color/white" />
+    </LinearLayout>
 
 
-
-
-
-
-
-
-</LinearLayout>
+</ScrollView>
