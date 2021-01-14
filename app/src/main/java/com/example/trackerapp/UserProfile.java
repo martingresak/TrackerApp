@@ -31,7 +31,7 @@ public class UserProfile extends AppCompatActivity{
 
     float x1, x2, y1, y2;
     private FirebaseAuth mAuth;
-    Button logout_btn, set_btn, edit_btn;
+    Button logout_btn, set_btn, edit_btn, user_home_btn;
     ArrayAdapter<String> data_list;
     ArrayAdapter<String> goal_list;
     Spinner data_picker, goal_picker;
@@ -40,6 +40,7 @@ public class UserProfile extends AppCompatActivity{
     FirebaseUser user;
     TextInputLayout full_name, user_email, user_password;
     TextView full_name_display, username_display;
+    private Object lock = new Object();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +78,7 @@ public class UserProfile extends AppCompatActivity{
         goal_list.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         goal_picker.setAdapter(goal_list);*/
 
-
+        user_home_btn = findViewById(R.id.user_home_btn);
         logout_btn = findViewById(R.id.logout_btn);
         set_btn = findViewById(R.id.set_btn);
         edit_btn = findViewById(R.id.edit);
@@ -85,16 +86,7 @@ public class UserProfile extends AppCompatActivity{
         set_btn.setOnClickListener(this::onClick);
         logout_btn.setOnClickListener(this::onClick);
         edit_btn.setOnClickListener(this::onClick);
-
-        Button homeBtn = (Button)findViewById(R.id.ratings_btn);
-
-        homeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (UserProfile.this, CenterActivity.class);
-                startActivity(intent);
-            }
-        });
+        user_home_btn.setOnClickListener(this::onClick);
 
     }
 
@@ -146,12 +138,8 @@ public class UserProfile extends AppCompatActivity{
         else if (i == R.id.set_btn) {
            selected_data = data_picker.getSelectedItem().toString();
 
-           Intent intent = new Intent(getApplicationContext(), CenterActivity.class);
-           intent.putExtra("EXTRA_STRING", selected_data);
-           this.finish();
-           startActivity(intent);
-
         }
+
         else if (i == R.id.edit) {
             try {
                 String tempName = full_name.getEditText().getText().toString().trim();
@@ -173,6 +161,14 @@ public class UserProfile extends AppCompatActivity{
                 user_password.getEditText().setText("");
             } catch (Exception ignored) {
             }
+        }
+
+        else if (i == R.id.user_home_btn){
+            selected_data = data_picker.getSelectedItem().toString();
+            Intent intent = new Intent(getApplicationContext(), CenterActivity.class);
+            intent.putExtra("EXTRA_STRING", selected_data);
+            this.finish();
+            startActivity(intent);
         }
     }
 

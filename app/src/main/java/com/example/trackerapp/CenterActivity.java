@@ -87,6 +87,8 @@ public class CenterActivity extends AppCompatActivity {
 
     EditText cityInput;
 
+    Button userBtn, ratingsBtn;
+
     RelativeLayout mCityFinder;
 
 
@@ -124,6 +126,9 @@ public class CenterActivity extends AppCompatActivity {
         WeatherTemp = findViewById(R.id.weather_temp);
         WeatherIcon = findViewById(R.id.weather_icon);
 
+        userBtn = (Button)findViewById(R.id.profile_btn);
+        ratingsBtn = (Button)findViewById(R.id.ratings_btn);
+
 
         charts = new ArrayList<>();
         charts.add(mainBarChart);
@@ -137,13 +142,13 @@ public class CenterActivity extends AppCompatActivity {
             int v = (int) (value);
             setState(v);
         });
-        Button userBtn = (Button)findViewById(R.id.profile_btn);
-        Button ratingsBtn = (Button)findViewById(R.id.ratings_btn);
+
 
         userBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (CenterActivity.this,UserProfile.class);
+                CenterActivity.this.finish();
                 startActivity(intent);
             }
         });
@@ -189,25 +194,28 @@ public class CenterActivity extends AppCompatActivity {
             userID = mAuth.getUid();
         }
         ref = FirebaseDatabase.getInstance("https://trackerapp-emp-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child(userID);
+
         ref.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Map<String, Object> days = (Map<String, Object>) dataSnapshot.getValue();
 
-                        for (Map.Entry<String, Object> entry : days.entrySet()) {
-                            if(entry.getKey().matches("[0-9]+")) {
+                            for (Map.Entry<String, Object> entry : days.entrySet()) {
+                                if (entry.getKey().matches("[0-9]+")) {
 
-                                Map<String, Object> day = (Map<String, Object>) entry.getValue();
-                                data.add((Long) day.get(dataType));
+                                    Map<String, Object> day = (Map<String, Object>) entry.getValue();
+                                    data.add((Long) day.get(dataType));
+                                }
                             }
-                        }
 
-                        for (int i = 0; i < data.size(); i++) {
-                            dataEntry.add(new Entry(i, data.get(i)));
-                            dataBarEntry.add(new BarEntry(i, data.get(i)));
-                        }
-                        drawChart();
+                            for (int i = 0; i < data.size(); i++) {
+                                dataEntry.add(new Entry(i, data.get(i)));
+                                dataBarEntry.add(new BarEntry(i, data.get(i)));
+                            }
+                            drawChart();
+
+
                     }
 
                     @Override
@@ -215,6 +223,9 @@ public class CenterActivity extends AppCompatActivity {
                         //handle databaseError
                     }
                 });
+
+
+
 
         cityInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -344,7 +355,6 @@ public class CenterActivity extends AppCompatActivity {
         }
     }
 
-
     void setState(int state) {
         switch (state) {
             case 0:
@@ -403,7 +413,6 @@ public class CenterActivity extends AppCompatActivity {
         mainBarChart.setFitBars(true);
         setState(0);
     }
-
 
 
 }

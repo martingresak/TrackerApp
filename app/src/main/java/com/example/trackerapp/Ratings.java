@@ -28,10 +28,11 @@ public class Ratings extends AppCompatActivity {
     EditText review_sleep, review_exercise, review_mood;
     Button submit_sleep, submit_exercise, submit_mood;
     RatingBar ratingBar_mood;
-    String db_sleep, db_mood, db_exercise, userID, curentDate;
+    String db_sleep, db_exercise, userID, curentDate;
     float rateValue_mood; String temp_mood;
     private DatabaseReference userDBref;
     private FirebaseAuth mAuth;
+    int db_mood;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,10 +90,10 @@ public class Ratings extends AppCompatActivity {
                 temp_mood = rateCount_mood.getText().toString();
                 showRating_mood.setText("Your mood Rating: \n" +temp_mood +"\n" +review_mood.getText());
                 review_mood.setText("");
+                userDBref.child("mood").setValue(Math.round(ratingBar_mood.getRating()));
                 ratingBar_mood.setRating(0);
                 rateCount_mood.setText("");
-                db_mood = rateCount_mood.getText().toString();
-                userDBref.child("mood").setValue(Integer.parseInt(db_mood));
+
             }
         });
 
@@ -120,9 +121,10 @@ public class Ratings extends AppCompatActivity {
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (Ratings.this, CenterActivity.class);
-                startActivity(intent);
-
+                /*Intent intent = new Intent (Ratings.this, CenterActivity.class);
+                intent.putExtra("EXTRA_STRING", "sleep");
+                startActivity(intent);*/
+                finish();
             }
         });
 

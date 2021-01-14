@@ -102,9 +102,7 @@ public class SignUp extends AppCompatActivity {
 
         }
         else if (i == R.id.back_button) {
-            Intent intent = new Intent(getApplicationContext(), Login.class);
             this.finish();
-            startActivity(intent);
         }
     }
 }
