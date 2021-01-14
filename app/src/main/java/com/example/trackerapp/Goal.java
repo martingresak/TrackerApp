@@ -28,6 +28,7 @@ class StarGoal implements Goal {
 
 
 
+
     @Override
     public double getMaxProgress() {
         return maxProgress;

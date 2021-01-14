@@ -166,6 +166,7 @@ public class CenterActivity extends AppCompatActivity {
         dataEntry = new ArrayList<>();
         dataBarEntry = new ArrayList<>();
 
+        String dataType= getIntent().getStringExtra("EXTRA_STRING");
 
         ref = FirebaseDatabase.getInstance("https://trackerapp-emp-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child(userID);
         ref.addListenerForSingleValueEvent(
@@ -179,7 +180,7 @@ public class CenterActivity extends AppCompatActivity {
                             //Get user map
                             Map singleUser = (Map) entry.getValue();
                             //Get phone field and append to list
-                            data.add((Long) singleUser.get("sleep"));
+                            data.add((Long) singleUser.get(dataType));
                             for (int i = 0; i < data.size(); i++) {
                                 dataEntry.add(new Entry(i, data.get(i)));
                                 dataBarEntry.add(new BarEntry(i, data.get(i)));
