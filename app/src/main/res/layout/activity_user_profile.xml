@@ -1,132 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UserProfile"
     android:orientation="vertical">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:padding="20dp"
-        android:background="@color/primaryColor">
-
-        <TextView
-            android:id="@+id/fullname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tvoja mama"
-            android:textSize="30sp"
-            android:fontFamily="@font/nunito_bold"
-            android:layout_toRightOf="@id/imageView"
-            android:includeFontPadding="false"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp" />
-
-        <TextView
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="tvoja_mama"
-            android:textSize="14dp"
-            android:fontFamily="@font/nunito_regular"
-            android:layout_toRightOf="@id/imageView"
-            android:includeFontPadding="false"
-            android:layout_below="@+id/fullname"
-            android:layout_marginLeft="15dp" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="44dp"
-            tools:layout_editor_absoluteY="93dp"
-            tools:srcCompat="@tools:sample/avatars"
-            android:layout_centerVertical="true"/>
-
-    </RelativeLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:orientation="vertical"
-        android:background="@color/secondaryDarkColor">
+        android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:padding="20dp"
+            android:background="@color/primaryColor">
+
+            <TextView
+                android:id="@+id/fullname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tvoja mama"
+                android:textSize="30sp"
+                android:fontFamily="@font/nunito_bold"
+                android:layout_toRightOf="@id/imageView"
+                android:includeFontPadding="false"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="tvoja_mama"
+                android:textSize="14sp"
+                android:fontFamily="@font/nunito_regular"
+                android:layout_toRightOf="@id/imageView"
+                android:includeFontPadding="false"
+                android:layout_below="@+id/fullname"
+                android:layout_marginLeft="15dp" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteX="44dp"
+                tools:layout_editor_absoluteY="93dp"
+                tools:srcCompat="@tools:sample/avatars"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Full Name"
-            android:layout_marginBottom="10dp">
+            android:padding="20dp"
+            android:orientation="vertical"
+            android:background="@color/secondaryDarkColor">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:drawableLeft="@drawable/ic_baseline_person"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/nunito_black"
-                android:text="Tvoja Mama"/>
+                android:hint="Full Name"
+                android:layout_marginBottom="10dp">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:drawableStart="@drawable/ic_baseline_person"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/nunito_black"
+                    android:text="Tvoja Mama"/>
 
-        <com.google.android.material.textfield.TextInputLayout
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="E-mail"
+                android:layout_marginBottom="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_baseline_mail"
+                    android:drawablePadding="10dp"
+                    android:background="@color/white"
+                    android:fontFamily="@font/nunito_black"
+                    android:text="tvoja.mama@gmail.com"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:layout_marginBottom="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_baseline_lock"
+                    android:drawablePadding="10dp"
+                    android:background="@color/white"
+                    android:fontFamily="@font/nunito_black"
+                    android:text="porednamamica69"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/secondaryDarkColor"
+                android:layout_marginVertical="5dp"
+                android:textSize="20sp"
+                android:text="Edit"
+                android:fontFamily="@font/nunito_extrabold"
+                android:background="@color/secondaryDarkColor"/>
+
+            <Button
+                android:id="@+id/logout_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/secondaryDarkColor"
+                android:layout_marginVertical="5dp"
+                android:textSize="20sp"
+                android:text="Logout"
+                android:fontFamily="@font/nunito_extrabold"
+                android:background="@color/secondaryDarkColor"/>
+
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/data_picker"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="E-mail"
-            android:layout_marginBottom="10dp">
+            android:layout_height="40dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_baseline_mail"
-                android:drawablePadding="10dp"
-                android:background="@color/white"
-                android:fontFamily="@font/nunito_black"
-                android:text="tvoja.mama@gmail.com"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
+        <Spinner
+            android:id="@+id/goal_picker"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:layout_marginBottom="10dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_baseline_lock"
-                android:drawablePadding="10dp"
-                android:background="@color/white"
-                android:fontFamily="@font/nunito_black"
-                android:text="porednamamica69"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="40dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"/>
 
         <Button
-            android:id="@+id/edit"
+            android:id="@+id/set_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/secondaryDarkColor"
             android:layout_marginVertical="5dp"
             android:textSize="20sp"
-            android:text="Edit"
-            android:fontFamily="@font/nunito_extrabold"
-            android:background="@color/secondaryDarkColor"/>
-
-        <Button
-            android:id="@+id/logout_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/secondaryDarkColor"
-            android:layout_marginVertical="5dp"
-            android:textSize="20sp"
-            android:text="Logout"
+            android:text="SET"
             android:fontFamily="@font/nunito_extrabold"
             android:background="@color/secondaryDarkColor"/>
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

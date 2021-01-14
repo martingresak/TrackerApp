@@ -1,6 +1,5 @@
 package com.example.trackerapp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -23,40 +22,38 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.BarLineChartBase;
-import com.github.mikephil.charting.charts.CandleStickChart;
-import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.CandleData;
-import com.github.mikephil.charting.data.CandleDataSet;
-import com.github.mikephil.charting.data.CandleEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.data.RadarDataSet;
-import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.data.ScatterData;
 import com.github.mikephil.charting.data.ScatterDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.android.material.color.MaterialColors;
-import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.slider.Slider;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -70,11 +67,11 @@ public class CenterActivity extends AppCompatActivity {
 
     float x1, x2, y1, y2;
 
-    ArrayList<Entry> sleep; //teeeeeemp!!!!!!
-    ArrayList<BarEntry> barSleep; //temp as well
+    ArrayList<Entry> dataEntry; //teeeeeemp!!!!!!
+    ArrayList<BarEntry> dataBarEntry; //temp as well
+    ArrayList<Long> data;
 
     static int state;
-
     final String APP_ID = "1f755381a8c86a0fe7e6ac380197689c";
     final String WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather";
 
@@ -93,16 +90,24 @@ public class CenterActivity extends AppCompatActivity {
     LocationManager mLocationManager;
     LocationListener mLocationListener;
 
+    String userID;
 
+    private FirebaseAuth mAuth;
+    private DatabaseReference ref;
+
+    String test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_center);
+        mAuth = FirebaseAuth.getInstance();
+        userID = mAuth.getUid();
+
+
         charts = new ArrayList<>();
 
         typeSlider = findViewById(R.id.typeSlider);
-
         mainBarChart = findViewById(R.id.mainBarChart);
         mainLineChart = findViewById(R.id.mainLineChart);
         mainScatterChart = findViewById(R.id.mainScatterChart);
@@ -111,31 +116,19 @@ public class CenterActivity extends AppCompatActivity {
         charts.add(mainLineChart);
         charts.add(mainScatterChart);
 
-        //temp list remove pls
+        data = new ArrayList<>();
 
-        sleep = new ArrayList<>();
-        sleep.add(new Entry(0,60*6));
-        sleep.add(new Entry(1,60*7));
-        sleep.add(new Entry(2,60*8));
-        sleep.add(new Entry(3,60*4));
-        sleep.add(new Entry(4,60*6));
 
-        barSleep = new ArrayList<>();
 
-        for(int i = 0; i < sleep.size(); i++) {
-            float x = sleep.get(i).getX();
-            float y = sleep.get(i).getY();
-            barSleep.add(new BarEntry(x,y));
-        }
-
-        //end of temp
 
         typeSlider.addOnChangeListener((slider, value, fromUser) -> {
             int v = (int) (value);
             setState(v);
         });
 
-        drawChart();
+
+
+
 
 
         //WEATHER
@@ -294,15 +287,48 @@ public class CenterActivity extends AppCompatActivity {
         }
     }
 
-    public void onClick(View v) {
-        int i = v.getId();
+    protected void onResume() {
 
-        if(i == R.id.profile) {
-            Intent intent =
-                     new Intent(CenterActivity.this, UserProfile.class);
-            startActivity(intent);
-        }
+        super.onResume();
+
+        dataEntry = new ArrayList<>();
+        dataBarEntry = new ArrayList<>();
+
+
+        ref = FirebaseDatabase.getInstance("https://trackerapp-emp-default-rtdb.europe-west1.firebasedatabase.app/").getReference().child(userID);
+        ref.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Map<String, Object> days = (Map<String, Object>) dataSnapshot.getValue();
+
+                        for (Map.Entry<String, Object> entry : days.entrySet()) {
+
+                            //Get user map
+                            Map singleUser = (Map) entry.getValue();
+                            //Get phone field and append to list
+                            data.add((Long) singleUser.get("sleep"));
+                            for (int i = 0; i < data.size(); i++) {
+                                dataEntry.add(new Entry(i, data.get(i)));
+                                dataBarEntry.add(new BarEntry(i, data.get(i)));
+                            }
+
+                            drawChart();
+
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                    }
+                });
+
+
     }
+
 
     void setState(int state) {
         switch (state) {
@@ -335,9 +361,9 @@ public class CenterActivity extends AppCompatActivity {
     }
 
     void drawChart() {
-        BarDataSet barDataSet = new BarDataSet(barSleep, "");
-        LineDataSet lineDataSet = new LineDataSet(sleep, "");
-        ScatterDataSet scatterDataSet = new ScatterDataSet(sleep, "");
+        BarDataSet barDataSet = new BarDataSet(dataBarEntry, "");
+        LineDataSet lineDataSet = new LineDataSet(dataEntry, "");
+        ScatterDataSet scatterDataSet = new ScatterDataSet(dataEntry, "");
 
         barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
         barDataSet.setValueTextColor(Color.BLACK);
@@ -362,6 +388,7 @@ public class CenterActivity extends AppCompatActivity {
         mainBarChart.setFitBars(true);
         setState(0);
     }
+
     public boolean onTouchEvent(MotionEvent touchEvent){
         switch(touchEvent.getAction()){
             case MotionEvent.ACTION_DOWN:
