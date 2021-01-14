@@ -85,6 +85,8 @@ public class CenterActivity extends AppCompatActivity {
     TextView WeatherCity, WeatherType, WeatherTemp;
     ImageView WeatherIcon;
 
+    EditText cityInput;
+
     RelativeLayout mCityFinder;
 
 
@@ -109,14 +111,21 @@ public class CenterActivity extends AppCompatActivity {
             lock.notify();
         }
 
-
-        charts = new ArrayList<>();
+        cityInput = findViewById(R.id.searchCity);
 
         typeSlider = findViewById(R.id.typeSlider);
+
         mainBarChart = findViewById(R.id.mainBarChart);
         mainLineChart = findViewById(R.id.mainLineChart);
         mainScatterChart = findViewById(R.id.mainScatterChart);
 
+        WeatherType = findViewById(R.id.weather_type);
+        WeatherCity = findViewById(R.id.weather_city);
+        WeatherTemp = findViewById(R.id.weather_temp);
+        WeatherIcon = findViewById(R.id.weather_icon);
+
+
+        charts = new ArrayList<>();
         charts.add(mainBarChart);
         charts.add(mainLineChart);
         charts.add(mainScatterChart);
@@ -132,25 +141,12 @@ public class CenterActivity extends AppCompatActivity {
 
         //WEATHER
 
-        final EditText editText = findViewById(R.id.searchCity);
 
 
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                String newCity = editText.getText().toString();
-                Intent intent = new Intent(CenterActivity.this, CenterActivity.class);
-                intent.putExtra("City", newCity);
-                startActivity(intent);
 
-                return false;
-            }
-        });
 
-        WeatherType = findViewById(R.id.weather_type);
-        WeatherCity = findViewById(R.id.weather_city);
-        WeatherTemp = findViewById(R.id.weather_temp);
-        WeatherIcon = findViewById(R.id.weather_icon);
+
+
 
     }
 
@@ -170,7 +166,7 @@ public class CenterActivity extends AppCompatActivity {
         dataEntry = new ArrayList<>();
         dataBarEntry = new ArrayList<>();
 
-        String dataType= getIntent().getStringExtra("EXTRA_STRING");
+        String dataType = getIntent().getStringExtra("EXTRA_STRING");
 
         synchronized (lock) {
             while (mAuth == null) {
@@ -209,6 +205,20 @@ public class CenterActivity extends AppCompatActivity {
                         //handle databaseError
                     }
                 });
+
+        cityInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                String newCity = cityInput.getText().toString();
+                Intent intent = new Intent(CenterActivity.this, CenterActivity.class);
+                intent.putExtra("City", newCity);
+                intent.putExtra("EXTRA_STRING", mIntent.getStringExtra("EXTRA_STRING"));
+                CenterActivity.this.finish();
+                startActivity(intent);
+
+                return false;
+            }
+        });
 
 
     }
