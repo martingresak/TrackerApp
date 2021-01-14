@@ -4,27 +4,25 @@ import com.google.firebase.database.DatabaseReference;
 
 interface Goal {
 
-    public void setCurrentProgress(double currentProgress);
-    public double getCurrentProgress();
-    public double getMaxProgress();
-    public void setName(String name);
-    public String getName();
-    public String getId();
+    void setCurrentProgress(double currentProgress);
+    double getCurrentProgress();
+    double getMaxProgress();
+    void setName(String name);
+    String getName();
 
 }
 
 
 class StarGoal implements Goal {
     private double currentProgress;
-    private String name, id;
+    private String name;
     private final double maxProgress = 5.0;
 
     public StarGoal() {
     }
 
-    public StarGoal(String id, String name, double currentProgress) {
+    public StarGoal(String name, double currentProgress) {
         this.currentProgress = currentProgress;
-        this.id = id;
         this.name = name;
     }
 
@@ -55,10 +53,6 @@ class StarGoal implements Goal {
         return name;
     }
 
-    @Override
-    public String getId() {
-        return id;
-    }
 }
 
 class AmountGoal implements Goal {
@@ -70,8 +64,7 @@ class AmountGoal implements Goal {
     public AmountGoal() {
     }
 
-    public AmountGoal(String id, String name, double currentProgress, double maxProgress) {
-        this.id = id;
+    public AmountGoal(String name, double currentProgress, double maxProgress) {
         this.name = name;
         this.currentProgress = currentProgress;
         this.maxProgress = maxProgress;
@@ -107,8 +100,4 @@ class AmountGoal implements Goal {
         return name;
     }
 
-    @Override
-    public String getId() {
-        return null;
-    }
 }
