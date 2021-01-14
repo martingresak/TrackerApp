@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     intent = new Intent(MainActivity.this, CenterActivity.class);
+                    intent.putExtra("EXTRA_STRING", "sleep");
                     startActivity(intent);
                 }
             }

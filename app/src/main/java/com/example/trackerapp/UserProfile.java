@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,7 +27,8 @@ public class UserProfile extends AppCompatActivity{
     ArrayAdapter<String> goal_list;
     Spinner data_picker, goal_picker;
     private DatabaseReference mDatabase;
-    String selected_data;
+    String selected_data, cu;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +36,13 @@ public class UserProfile extends AppCompatActivity{
         setContentView(R.layout.activity_user_profile);
 
         mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
         //data_picker spinner
         data_picker = (Spinner) findViewById(R.id.data_picker);
-        data_list = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new String[]{"Sleep", "Mood", "Exercise"});
+        data_list = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new String[]{"sleep", "mood", "exercise"});
         data_list.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         data_picker.setAdapter(data_list);
 
@@ -56,6 +59,7 @@ public class UserProfile extends AppCompatActivity{
 
         set_btn.setOnClickListener(this::onClick);
         logout_btn.setOnClickListener(this::onClick);
+
 
     }
 
@@ -76,6 +80,15 @@ public class UserProfile extends AppCompatActivity{
         }
         else if (i == R.id.set_btn) {
            selected_data = data_picker.getSelectedItem().toString();
+
+           Intent intent = new Intent(getApplicationContext(), CenterActivity.class);
+           intent.putExtra("EXTRA_STRING", selected_data);
+           this.finish();
+           startActivity(intent);
+
+        }
+        else if (i == R.id.edit) {
+
         }
     }
 
