@@ -66,7 +66,6 @@ public class CenterActivity extends AppCompatActivity {
     ScatterChart mainScatterChart;
     ArrayList<BarLineChartBase> charts;
 
-    float x1, x2, y1, y2;
 
     ArrayList<Entry> dataEntry; //teeeeeemp!!!!!!
     ArrayList<BarEntry> dataBarEntry; //temp as well

@@ -35,7 +35,7 @@ import java.util.Objects;
 
 public class Login extends AppCompatActivity {
 
-    Button callSignUp, login_btn;
+    Button callSignUp, login_btn, forgot_password_btn;
     ImageView image;
     TextView logoText, sloganText;
     TextInputLayout email, password;
@@ -60,6 +60,7 @@ public class Login extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.pass);
         login_btn = findViewById(R.id.login_button);
+        forgot_password_btn = findViewById(R.id.forgot_password);
 
 
 
@@ -129,8 +130,7 @@ public class Login extends AppCompatActivity {
             }
 
         }
-        else
-            if (i == R.id.signup_screen) {
+        else if (i == R.id.signup_screen) {
                 Intent intent = new Intent(Login.this, SignUp.class);
 
                 Pair[] pairs = new Pair[7];
@@ -144,7 +144,33 @@ public class Login extends AppCompatActivity {
                 pairs[6] = new Pair<View,String>(callSignUp,"back_button");
 
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs);
+                this.finish();
                 startActivity(intent, options.toBundle());
             }
+
+        else if (i == R.id.forgot_password) {
+            try {
+                String emailString = email.getEditText().getText().toString().trim();
+
+                mAuth.sendPasswordResetEmail(emailString)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d(TAG, "Email sent.");
+                                    Toast.makeText(Login.this, "Email sent", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    Toast.makeText(Login.this, "Email failed.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            }
+            catch (Exception e) {
+                Toast.makeText(Login.this, "Email required", Toast.LENGTH_SHORT).show();
+            }
+
+
+        }
     }
 }
